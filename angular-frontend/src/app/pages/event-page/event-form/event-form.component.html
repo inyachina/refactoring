@@ -1,0 +1,57 @@
+<div class="container">
+
+  <form [formGroup]="formGroup">
+    <mat-card class='m-10'>
+      <mat-card-title> Создание события</mat-card-title>
+
+      <div class="form_row_left mt-10">
+        <mat-form-field class="mr-20" appearance="fill">
+          <mat-label>Название</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="yearInput ml-15" appearance="outline">
+          <mat-label>Год начала</mat-label>
+          <input matInput formControlName="startTime">
+        </mat-form-field>
+
+        <mat-form-field class="yearInput" appearance="outline">
+          <mat-label>Окончание</mat-label>
+          <input matInput formControlName="endTime">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Описание</mat-label>
+        <textarea matInput formControlName="description" placeholder="В далекой, далекой галактике..."></textarea>
+      </mat-form-field>
+      <mat-card-actions>
+        <button (click)="createEventOrder()" color="primary" mat-button>Создать заказ на изменение реальности</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </form>
+
+<!--  <mat-card class='order_container m-10'>-->
+<!--    <mat-card-title>Ваши заказы</mat-card-title>-->
+<!--      <table mat-table  [dataSource]="dataSource" matSort>-->
+
+<!--        <ng-container matColumnDef="orderId">-->
+<!--          <th class="name_td" mat-header-cell *matHeaderCellDef mat-sort-header>№</th>-->
+<!--          <td class="name_td" mat-cell *matCellDef="let order"> {{order.orderId}} </td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="orderStatus">-->
+<!--          <th class="description_td" mat-header-cell *matHeaderCellDef mat-sort-header> Статус </th>-->
+<!--          <td class="description_td" mat-cell *matCellDef="let event"> {{event.orderStatus}} </td>-->
+<!--        </ng-container>-->
+
+<!--        <tr mat-header-row sticky-state *matHeaderRowDef="displayedColumnsOrders"></tr>-->
+<!--        <tr mat-row *matRowDef="let row; columns: displayedColumnsOrders;"></tr>-->
+
+<!--      </table>-->
+
+<!--    </mat-card>-->
+
+
+</div>

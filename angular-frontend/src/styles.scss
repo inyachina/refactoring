@@ -1,0 +1,118 @@
+html, body {
+  height: 100%;
+}
+
+::ng-deep body{
+  margin: 0;
+  background: #a8c291;
+}
+
+
+.link {
+  color: dodgerblue;
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &_left {
+    justify-content: start;
+  }
+  &_space_between {
+    justify-content: space-between;
+  }
+  &_wrap {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+.form-control {
+  margin: 15px auto;
+}
+
+.form-control_start {
+  margin: 15px;
+}
+
+.p-30{
+  padding: 30px;
+}
+
+.mt-8vh {
+  margin-top: 8vh;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mr-30 {
+  margin-right: 15px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+.m-30 {
+  margin: 30px;
+}
+.title{
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0;
+  background-color: #b5d2f8;
+  border-radius: 5px;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: #3f51b5;
+  border-radius: 9em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #253861;
+}
+.mat-dialog-container {
+  border-radius: 20px !important;
+}

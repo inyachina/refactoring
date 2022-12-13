@@ -1,0 +1,112 @@
+@import 'core';
+
+:host {
+  position: relative;
+  width: max-content;
+  outline: 0;
+}
+
+.button {
+  position: relative;
+  height: 40px;
+  padding: 0 15px;
+  border: 2px solid rgba(54, 69, 255, 0.7);
+  border-radius: 10px;
+  background: none;
+  outline: none;
+  color: $blue;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter';
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &_padding_small_right {
+    padding-right: 5px !important;
+  }
+
+  &:disabled {
+    background-color: $bg-light-black;
+    border: none;
+    cursor: not-allowed;
+    color: $white;
+
+    &:hover {
+      background-color: $bg-light-black;
+    }
+  }
+
+  &_full-width {
+    width: 100%;
+  }
+
+  &_red {
+    background: $bg-red;
+    border: none;
+    color: $white;
+
+    &:hover {
+      background: $bg-dark-red;
+    }
+  }
+
+  &_light-red {
+    border: 2px solid rgba(216, 76, 115, 0.7);
+    color: $bg-red;
+  }
+
+  &_gray {
+    color: $text-gray-color;
+    background: $gray;
+    border: 1px solid #dee6ec;
+  }
+
+  &_white {
+    border: 1px solid $white;
+    color: $white;
+  }
+
+  &_white_gray {
+    border: 1px solid $gray;
+    color: $text-black-color;
+  }
+
+  &_blue {
+    background: $blue;
+    color: $white;
+  }
+
+  &_light-blue {
+    background: #dceafe;
+    border: none;
+    color: #3645ff;
+  }
+
+  &_ocean-blue {
+    color: $white;
+    background: #5462ff;
+    border: 2px solid rgba(54, 69, 255, 0.7);
+  }
+
+  &__text {
+    font: inherit;
+  }
+
+  &_basic {
+    height: auto;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  &_no_borders {
+    border: rgba(0, 0, 0, 0);
+  }
+
+  &_xl {
+    height: 48px;
+    padding: 0 30px;
+  }
+}

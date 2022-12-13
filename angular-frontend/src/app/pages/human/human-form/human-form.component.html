@@ -1,0 +1,25 @@
+<form [formGroup]="humanForm" class="form_column mt-10">
+  <h1> Укажите личные данные человека</h1>
+  <mat-form-field class="form-control_s" appearance="fill">
+    <mat-label>Введите имя</mat-label>
+    <input  matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field class="form-control_s" appearance="fill">
+    <mat-label>Введите фамилию</mat-label>
+    <input  matInput formControlName="surname">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Укажите дату рождения</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="birthdayDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="form-control_s" appearance="fill">
+    <mat-label>Укажите год, в котором находится человек</mat-label>
+    <input type="number" matInput formControlName="time">
+  </mat-form-field>
+  <button
+    (click)="onClose()"
+    [disabled]="humanForm.invalid"
+    mat-raised-button color="primary">Готово</button>
+</form>

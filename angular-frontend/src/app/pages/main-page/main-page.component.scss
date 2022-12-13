@@ -1,0 +1,9 @@
+::ng-deep.main_page {
+  height: 100vh;
+  width: 100%;
+  background: #1f1826 url(../../../assets/images/cosmos.png) no-repeat;
+  background-size: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+}

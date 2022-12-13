@@ -1,0 +1,30 @@
+<mat-toolbar
+  color="primary"
+  class="toolbar">
+  <span class="mr-20">Конец вечности</span>
+  <span>
+    <button
+      (click)="goToProduct()"
+      mat-button>Товары</button>
+  </span>
+  <span>
+    <button
+      (click)="goToEvent()"
+      mat-button>События</button>
+  </span>
+
+  <button [matMenuTriggerFor]="menu" mat-icon-button class="settings_icon">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+
+<!--    <button mat-menu-item>-->
+<!--      <mat-icon>face</mat-icon>-->
+<!--      <span>Данные о пользователе</span>-->
+<!--    </button>-->
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Выйти</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

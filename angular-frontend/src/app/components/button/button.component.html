@@ -1,0 +1,42 @@
+<button
+  [disabled]="disabled"
+  [type]="type"
+  class="button"
+  [ngClass]="{
+    button_basic: appearance === 'basic',
+    button_red: color === 'red',
+    'button_light-red': color === 'lightRed',
+    button_white: color === 'white',
+    button_blue: color === 'blue',
+    button_gray: color === 'gray',
+    'button_light-blue': color === 'lightBlue',
+    'button_ocean-blue': color === 'oceanBlue',
+    button_white_gray: color === 'whiteGray',
+    'button_full-width': fullWidth,
+    button_xl: size === 'xl',
+    button_no_borders: noBorders,
+    button_padding_small_right: isSmallPaddingRight
+  }"
+>
+  <div
+    class="button__content"
+    *ngIf="iconLeft"
+    [ngClass]="{ button__icon_left: iconLeft, button__icon_right: iconRight }"
+  >
+    <ng-container *ngTemplateOutlet="icon"></ng-container>
+  </div>
+
+  <span class="button__text">{{ text }}</span>
+
+  <div
+    *ngIf="iconRight"
+    class="button__content"
+    [ngClass]="{ button__icon_left: iconLeft, button__icon_right: iconRight }"
+  >
+    <ng-container *ngTemplateOutlet="icon"></ng-container>
+  </div>
+</button>
+
+<ng-template #icon>
+  <ng-content></ng-content>
+</ng-template>

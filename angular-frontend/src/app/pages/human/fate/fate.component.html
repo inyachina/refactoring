@@ -1,0 +1,16 @@
+<div class="form_column p-30">
+  <span class="form-control title">Расчет судьбы</span>
+  <ng-container *ngIf="!isInProcess; else inProcess">
+  <p class="form-control"> Вы можете оставить заявку на расчет судьбы данного человека</p>
+  <button
+    class="form-control mt-15"
+    (click)="countFate()"
+    mat-raised-button
+    color="primary">
+    Оставить заявку
+  </button>
+  </ng-container>
+  <ng-template #inProcess>
+    Вы уже отправили заявку. Время обработки может занять от минуты до тысячи лет.
+  </ng-template>
+</div>

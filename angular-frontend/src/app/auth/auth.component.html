@@ -1,0 +1,18 @@
+<div class="login_page ">
+
+  <div class="login_block">
+    <div [@loginBlock]='!this.isRegistration ? "visible" : "invisible"'>
+      <app-login
+        (goToRegistrationEvent)="this.isRegistration = true"
+      ></app-login>
+    </div>
+
+    <div [@loginBlock]='this.isRegistration ? "visible" : "invisible"'>
+      <app-registration
+        (goToLoginEvent)="this.isRegistration = false"
+      ></app-registration>
+    </div>
+
+  </div>
+  <h1 class="login_title">Конец вечности</h1>
+</div>

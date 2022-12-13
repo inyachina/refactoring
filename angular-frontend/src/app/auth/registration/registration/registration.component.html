@@ -1,0 +1,71 @@
+<form class="form_column">
+  <h1 class="form-control">Регистрация</h1>
+
+  <mat-vertical-stepper>
+
+
+    <mat-step
+      label="Логин"
+      [stepControl]="firstFormGroup">
+      <form class="stepper_form_column" [formGroup]="firstFormGroup">
+        <mat-form-field class="form-control_s" appearance="outline">
+          <mat-label>Введите логин</mat-label>
+          <input matInput formControlName="login">
+        </mat-form-field>
+        <button color="primary" mat-icon-button matStepperNext>далее</button>
+      </form>
+    </mat-step>
+
+
+    <mat-step
+      label="Пароль"
+      errorMessage="Пароль должен содержать более 3-х символов."
+      [stepControl]="secondFormGroup">
+      <form
+        class="stepper_form_column"
+        [formGroup]="secondFormGroup">
+        <mat-form-field appearance="outline">
+          <mat-label>Введите пароль</mat-label>
+          <input matInput
+                 formControlName="password"
+                 [type]="isHiddenPassword ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="isHiddenPassword = !isHiddenPassword"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="isHiddenPassword">
+            <mat-icon>{{isHiddenPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="form_row_left">
+          <button color="primary" mat-icon-button matStepperNext>далее</button>
+          <button [style.color]="'gray'" mat-icon-button matStepperPrevious>назад</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step
+      label="Контакты"
+      [stepControl]="thirdFormGroup">
+      <form
+        class="stepper_form_column"
+        [formGroup]="thirdFormGroup">
+        <mat-form-field class="form-control_s" appearance="outline">
+          <mat-label>Введите email</mat-label>
+          <input [email]="true" matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="form-control_s" appearance="outline">
+          <mat-label>Введите номер телефона</mat-label>
+          <input matInput formControlName="phone">
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+  <mat-checkbox
+    [formControl]="isEmployeeControl"
+    class="form-control_start">Вы сотрудник?</mat-checkbox>
+  <button
+    (click)="authorize()"
+    [disabled]="!areValidForms"
+    mat-raised-button color="primary">Зарегистрироваться</button>
+  <a class="form-control link" (click)="_goToLogin()"> Уже есть аккаунт? Войдите. </a>
+</form>

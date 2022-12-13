@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "kursach-460c7",
+    "staging": "kursach-460c7"
+  },
+  "targets": {}
+}

@@ -1,0 +1,22 @@
+.sidenav_container {
+  height: 500vh;
+  background: #3f51b5;
+  overflow: hidden;
+}
+
+.closed-sidenav {
+  width: 100px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.opened-sidenav {
+  background: #3f51b5;
+  width: 4vw;
+  height: 100vh;
+  box-shadow: 5px 5px 9px 3px rgba(0, 0, 0, 0.18);
+  min-height: 100%;
+  position: relative;
+  background-size: cover
+}

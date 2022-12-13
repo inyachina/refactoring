@@ -1,0 +1,10 @@
+.main_container{
+  display: grid;
+  grid-template-columns: 5vw 95vw;
+  /*height: 100vm;*/
+  /*width: 97vw;*/
+}
+.sidenav{
+  /*position: absolute;*/
+  z-index: 2;
+}

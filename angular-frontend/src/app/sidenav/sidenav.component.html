@@ -1,0 +1,36 @@
+<!--<mat-drawer-container class="sidenav_container" autosize>-->
+<!--  <mat-drawer #drawer class="closed-sidenav form_column_start" mode="push">-->
+<!--    <button mat-button>Торговля</button>-->
+<!--    <button mat-button>Люди</button>-->
+<!--    <button mat-button>События</button>-->
+<!--&lt;!&ndash;    <button (click)="showFiller = !showFiller" mat-icon-button>&ndash;&gt;-->
+<!--&lt;!&ndash;      <mat-icon>list</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--  </mat-drawer>-->
+
+<div class="opened-sidenav">
+  <button [matMenuTriggerFor]="menu" mat-icon-button class="settings_icon">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>face</mat-icon>
+      <span>Данные о пользователе</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Выйти</span>
+    </button>
+  </mat-menu>
+  <button (click)="goToEvent()"  mat-icon-button matTooltip="События">
+    <mat-icon>event</mat-icon>
+  </button>
+  <button (click)="goToPeople()"  mat-icon-button matTooltip="Люди">
+    <mat-icon>people </mat-icon>
+  </button>
+  <button (click)="goToProduct()"  mat-icon-button matTooltip="Магазин">
+    <mat-icon>store</mat-icon>
+  </button>
+
+</div>
+<!--</mat-drawer-container>-->

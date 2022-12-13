@@ -1,0 +1,21 @@
+<form [formGroup]="productForm" class="form_column mt-10">
+  <span class="title form-control">Добавление артефакта</span>
+  <mat-form-field class="form-control_s" appearance="fill">
+    <mat-label>Введите название</mat-label>
+    <input  matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field class="form-control_s" appearance="fill">
+    <mat-label>Укажите год, в котором находится сейчас артефакт</mat-label>
+    <input type="number" matInput formControlName="timeCurrent">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="description" placeholder="..."></textarea>
+  </mat-form-field>
+  <button
+    (click)="onClose()"
+    [disabled]="productForm.invalid"
+    mat-raised-button color="primary">Готово</button>
+</form>

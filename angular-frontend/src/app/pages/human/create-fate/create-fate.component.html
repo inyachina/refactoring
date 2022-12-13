@@ -1,0 +1,14 @@
+<div class="form_column p-30">
+  <span class="form-control title">Расчет судьбы</span>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Судьба</mat-label>
+    <textarea matInput [formControl]="fate" placeholder="..."></textarea>
+  </mat-form-field>
+  <button
+    (click)="changeHumanFate()"
+    [disableRipple]="fate.invalid"
+    mat-raised-button
+    color="primary">
+    Утвердить
+  </button>
+</div>
