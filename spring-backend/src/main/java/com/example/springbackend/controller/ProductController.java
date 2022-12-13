@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("api/products")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
     private ProductServiceImpl productService;
@@ -32,8 +32,8 @@ public class ProductController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Response<Object>> findAllActive() {
+    @GetMapping("/active")
+    public ResponseEntity<Response<Object>> findAllActiveProducts() {
         try {
             List<Product> products = this.productService.findAllBySold(false);
             return Response.success(products);
@@ -45,8 +45,8 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Response<Object>> save(@RequestBody ProductDao product, HttpServletRequest req) {
+    @PostMapping
+    public ResponseEntity<Response<Object>> saveProduct(@RequestBody ProductDao product, HttpServletRequest req) {
         try {
             this.productService.save(new Product(product.getName(),
                     product.getDescription(),

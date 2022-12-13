@@ -28,7 +28,7 @@ public class HumanController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Response<Object>> findAll(HttpServletRequest req) {
         try {
             List<Human> people = this.humanService.findAllByUserId(this.userService.findByLogin(req.getHeader("login")).getId());
@@ -42,7 +42,7 @@ public class HumanController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Response<Object>> save(@RequestBody HumanDao humanDao, HttpServletRequest request) {
         try {
             this.humanService.save(new Human(
@@ -62,7 +62,7 @@ public class HumanController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Response<Object>> update(@RequestBody String fate, @PathVariable Integer id) {
         try {
             this.humanService.updateFate(id, fate);

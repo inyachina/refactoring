@@ -17,7 +17,6 @@ import java.util.Arrays;
 
 @RestController
 @RequestMapping("api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     private UserServiceImpl userService;
 
@@ -27,7 +26,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/reg")
+    @PostMapping("/register")
     public ResponseEntity<Response<Object>> authorize(@RequestBody @NonNull AuthorizationDao req) {
         try {
             System.out.println(req);

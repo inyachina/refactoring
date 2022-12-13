@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/event")
+@RequestMapping("api/events")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EventController {
     private EventServiceImpl eventService;
@@ -26,7 +26,7 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Response<Object>> findAll() {
         try {
             List<Event> events = this.eventService.findAll();
@@ -38,7 +38,7 @@ public class EventController {
                                     HttpStatus.INTERNAL_SERVER_ERROR, Arrays.toString(e.getStackTrace()))));
         }
     }
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Response<Object>> save(@RequestBody EventDao eventDao) {
         try {
             this.eventService.save(new Event(eventDao.getName(), eventDao.getDescription(), Date.valueOf(LocalDate.now()),
@@ -51,7 +51,7 @@ public class EventController {
                                     HttpStatus.INTERNAL_SERVER_ERROR, Arrays.toString(e.getStackTrace()))));
         }
     }
-    @PutMapping("/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Response<Object>> update(@RequestBody EventDao eventDao) {
         try {
             this.eventService.update(new Event(eventDao.getName(), eventDao.getDescription(), Date.valueOf(LocalDate.now()),
@@ -66,7 +66,7 @@ public class EventController {
     }
 
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Response<Object>> delete(@PathVariable String id) {
         try {
             this.eventService.deleteById(Integer.parseInt(id));
