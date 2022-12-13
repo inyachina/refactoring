@@ -1,10 +1,8 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.EventDao;
-import com.example.springbackend.dao.ProductDao;
+import com.example.springbackend.data.dto.ProductDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
-import com.example.springbackend.model.Event;
 import com.example.springbackend.model.Product;
 import com.example.springbackend.service.impl.ProductServiceImpl;
 import com.example.springbackend.service.impl.UserServiceImpl;
@@ -14,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Response<Object>> saveProduct(@RequestBody ProductDao product, HttpServletRequest req) {
+    public ResponseEntity<Response<Object>> saveProduct(@RequestBody ProductDTO product, HttpServletRequest req) {
         try {
             this.productService.save(new Product(product.getName(),
                     product.getDescription(),

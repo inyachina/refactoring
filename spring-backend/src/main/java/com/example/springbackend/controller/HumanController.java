@@ -1,6 +1,6 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.HumanDao;
+import com.example.springbackend.data.dto.HumanDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Human;
@@ -42,7 +42,7 @@ public class HumanController {
     }
 
     @PostMapping
-    public ResponseEntity<Response<Object>> save(@RequestBody HumanDao humanDao, HttpServletRequest request) {
+    public ResponseEntity<Response<Object>> save(@RequestBody HumanDTO humanDao, HttpServletRequest request) {
         try {
             this.humanService.save(new Human(
                     humanDao.getName(),

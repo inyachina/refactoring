@@ -4,7 +4,7 @@ package com.example.springbackend.controller;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.User;
-import com.example.springbackend.dao.AuthorizationDao;
+import com.example.springbackend.data.dto.AuthorizationDTO;
 import com.example.springbackend.service.impl.UserServiceImpl;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Response<Object>> authorize(@RequestBody @NonNull AuthorizationDao req) {
+    public ResponseEntity<Response<Object>> authorize(@RequestBody @NonNull AuthorizationDTO req) {
         try {
             System.out.println(req);
             this.userService.findByLogin(req.getLogin());

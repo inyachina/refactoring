@@ -1,6 +1,6 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.EventDao;
+import com.example.springbackend.data.dto.EventDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Event;
@@ -38,10 +38,10 @@ public class EventController {
         }
     }
     @PostMapping
-    public ResponseEntity<Response<Object>> save(@RequestBody EventDao eventDao) {
+    public ResponseEntity<Response<Object>> save(@RequestBody EventDTO eventDTO) {
         try {
-            this.eventService.save(new Event(eventDao.getName(), eventDao.getDescription(), Date.valueOf(LocalDate.now()),
-                    eventDao.getStartTime(), eventDao.getEndTime()));
+            this.eventService.save(new Event(eventDTO.getName(), eventDTO.getDescription(), Date.valueOf(LocalDate.now()),
+                    eventDTO.getStartTime(), eventDTO.getEndTime()));
             return Response.success();
         }catch (Exception e){
             return Response.failure(
@@ -51,10 +51,10 @@ public class EventController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Response<Object>> update(@RequestBody EventDao eventDao) {
+    public ResponseEntity<Response<Object>> update(@RequestBody EventDTO eventDTO) {
         try {
-            this.eventService.update(new Event(eventDao.getName(), eventDao.getDescription(), Date.valueOf(LocalDate.now()),
-                    eventDao.getStartTime(), eventDao.getEndTime()));
+            this.eventService.update(new Event(eventDTO.getName(), eventDTO.getDescription(), Date.valueOf(LocalDate.now()),
+                    eventDTO.getStartTime(), eventDTO.getEndTime()));
             return Response.success();
         }catch (Exception e){
             return Response.failure(

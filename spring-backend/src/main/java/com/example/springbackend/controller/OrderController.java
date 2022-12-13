@@ -1,6 +1,6 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.ProductOrderDao;
+import com.example.springbackend.data.dto.ProductOrderDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Human;
@@ -102,7 +102,7 @@ public class OrderController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Response<Object>> saveProductOrder(@RequestBody ProductOrderDao dao, HttpServletRequest req) {
+    public ResponseEntity<Response<Object>> saveProductOrder(@RequestBody ProductOrderDTO dao, HttpServletRequest req) {
         try {
             this.productOrderService.save(new ProductOrder(
                     "IN_THE_BASKET",
