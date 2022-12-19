@@ -40,7 +40,7 @@ public class OrderController {
         this.productService = productService;
     }
 
-    @PostMapping("/human-fate")
+    @PostMapping("/human-fate/{id}")
     public ResponseEntity<Response<Object>> saveHumanFateOrder(@PathVariable Integer id, HttpServletRequest req) {
         try {
             this.humanOrderService.save(new HumanOrder(

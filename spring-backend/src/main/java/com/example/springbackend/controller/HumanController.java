@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/human")
+@RequestMapping("api/humans")
 public class HumanController {
     private HumanServiceImpl humanService;
     private UserServiceImpl userService;
