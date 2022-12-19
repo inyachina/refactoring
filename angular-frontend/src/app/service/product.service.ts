@@ -16,22 +16,19 @@ export class ProductService {
   }
 
   createProduct(product: ProductType) {
-    return this.http.postData(`${PRODUCT_URL}/create`, product);
+    return this.http.postData(`${PRODUCT_URL}`, product);
   }
 
   getProducts() {
-    return this.http.getData<ProductType[]>(`${PRODUCT_URL}/all`);
+    return this.http.getData<ProductType[]>(`${PRODUCT_URL}/active`);
   }
 
   addToBasket(order: ProductOrderType) {
-    return this.http.postData(`${ORDER_URL}/product/create/`, order);
+    return this.http.postData(`${ORDER_URL}/product`, order);
   }
 
-  removeFromBasket() {
-    return this.http.deleteData(`${ORDER_URL}/product/create/`);
-  }
   getBasket() {
-    return this.http.getData<ProductType[]>(`${ORDER_URL}/product/basket/${AppComponent.user.login}`)
+    return this.http.getData<ProductType[]>(`${ORDER_URL}/product`)
       .pipe(map((r) => r.data));
   }
 }

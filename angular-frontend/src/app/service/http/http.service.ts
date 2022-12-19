@@ -1,16 +1,13 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { ApiResponse, QueryParams } from './http.type';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {HttpClient, HttpErrorResponse, HttpHeaders,} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {ApiResponse, QueryParams} from './http.type';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {SERVER_URL} from "../../data/server_urls";
 import {AppComponent} from "../../app.component";
+
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +17,8 @@ export class HttpService implements HttpService {
     private _snackBar: MatSnackBar,
     private _http: HttpClient,
     private _router: Router,
-  ) {}
+  ) {
+  }
 
   private _createDefaultHeaders(noAuth?: boolean): HttpHeaders {
     const {login, password} = AppComponent.user;
@@ -37,7 +35,9 @@ export class HttpService implements HttpService {
   }
 
   private _removeNullParams(params: QueryParams | undefined): {} | null {
-    if (!params) { return null; }
+    if (!params) {
+      return null;
+    }
 
     return Object.entries(params).reduce(
       (a: QueryParams, [k, v]) => (v === null ? a : ((a[k] = v), a)),
@@ -114,30 +114,10 @@ export class HttpService implements HttpService {
 
   private _handleError(e: HttpErrorResponse): Observable<Error> {
     const code = e.status;
-
-    switch (code) {
-      case 500:
-        this._snackBar.open('Непредвиденная ошибка', 'Закрыть', {
-          duration: 3000,
-        });
-        break;
-
-      case 502:
-        this._snackBar.open('Сервис временно недоступен', 'Закрыть', {
-          duration: 3000,
-        });
-        break;
-
-      case 403:
-
-        if (this._router.url.indexOf('/login/') === -1) {
-          this._router.navigateByUrl('login');
-        }
-
-        break;
-
-      default:
-        break;
+    if (code === 500 || code === 400 || code === 404 || code === 422) {
+      this._snackBar.open(e.error.message, 'Close', {
+        duration: 3000,
+      });
     }
 
     return throwError(e);
