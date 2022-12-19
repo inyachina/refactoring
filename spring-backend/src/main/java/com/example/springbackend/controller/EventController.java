@@ -1,6 +1,6 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.EventDao;
+import com.example.springbackend.data.dto.EventDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Event;
@@ -16,8 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/event")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("api/events")
 public class EventController {
     private EventServiceImpl eventService;
 
@@ -26,7 +25,7 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Response<Object>> findAll() {
         try {
             List<Event> events = this.eventService.findAll();
@@ -38,11 +37,11 @@ public class EventController {
                                     HttpStatus.INTERNAL_SERVER_ERROR, Arrays.toString(e.getStackTrace()))));
         }
     }
-    @PostMapping("/create")
-    public ResponseEntity<Response<Object>> save(@RequestBody EventDao eventDao) {
+    @PostMapping
+    public ResponseEntity<Response<Object>> save(@RequestBody EventDTO eventDTO) {
         try {
-            this.eventService.save(new Event(eventDao.getName(), eventDao.getDescription(), Date.valueOf(LocalDate.now()),
-                    eventDao.getStartTime(), eventDao.getEndTime()));
+            this.eventService.save(new Event(eventDTO.getName(), eventDTO.getDescription(), Date.valueOf(LocalDate.now()),
+                    eventDTO.getStartTime(), eventDTO.getEndTime()));
             return Response.success();
         }catch (Exception e){
             return Response.failure(
@@ -51,11 +50,11 @@ public class EventController {
                                     HttpStatus.INTERNAL_SERVER_ERROR, Arrays.toString(e.getStackTrace()))));
         }
     }
-    @PutMapping("/update")
-    public ResponseEntity<Response<Object>> update(@RequestBody EventDao eventDao) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<Object>> update(@RequestBody EventDTO eventDTO) {
         try {
-            this.eventService.update(new Event(eventDao.getName(), eventDao.getDescription(), Date.valueOf(LocalDate.now()),
-                    eventDao.getStartTime(), eventDao.getEndTime()));
+            this.eventService.update(new Event(eventDTO.getName(), eventDTO.getDescription(), Date.valueOf(LocalDate.now()),
+                    eventDTO.getStartTime(), eventDTO.getEndTime()));
             return Response.success();
         }catch (Exception e){
             return Response.failure(
@@ -66,7 +65,7 @@ public class EventController {
     }
 
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Response<Object>> delete(@PathVariable String id) {
         try {
             this.eventService.deleteById(Integer.parseInt(id));

@@ -1,12 +1,11 @@
-package com.example.springbackend.dao;
+package com.example.springbackend.data.dto;
 
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
-public class AuthenticationDao {
-    @NonNull
+@NonNull
+public class AuthenticationDTO {
     private String login;
-    @NonNull
     private String password;
 }

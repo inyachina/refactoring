@@ -1,6 +1,6 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.ProductOrderDao;
+import com.example.springbackend.data.dto.ProductOrderDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Human;
@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/order")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("api/orders")
 public class OrderController {
     private ProductOrderServiceImpl productOrderService;
     private EventOrderServiceImpl eventOrderService;
@@ -41,8 +40,8 @@ public class OrderController {
         this.productService = productService;
     }
 
-    @PostMapping("/human/create/{id}")
-    public ResponseEntity<Response<Object>> save(@PathVariable Integer id, HttpServletRequest req) {
+    @PostMapping("/human-fate/{id}")
+    public ResponseEntity<Response<Object>> saveHumanFateOrder(@PathVariable Integer id, HttpServletRequest req) {
         try {
             this.humanOrderService.save(new HumanOrder(
                     "IN_PROGRESS",
@@ -59,7 +58,7 @@ public class OrderController {
     }
 
     @GetMapping("/human-fate/{id}")
-    public ResponseEntity<Response<Object>> findHumanFate(@PathVariable Integer id) {
+    public ResponseEntity<Response<Object>> findHumanFateOrder(@PathVariable Integer id) {
         try {
             Optional<HumanOrder> humanOrder = this.humanOrderService.findByHuman_Id(id);
             if (humanOrder.isPresent()) return Response.success(humanOrder);
@@ -73,7 +72,7 @@ public class OrderController {
     }
 
     @GetMapping("/human-fate/active")
-    public ResponseEntity<Response<Object>> findAllHumanOrders() {
+    public ResponseEntity<Response<Object>> findAllActiveHumanOrders() {
         try {
             List<HumanOrder> humanOrders = this.humanOrderService.findAllByStatus("IN_PROGRESS");
             return Response.success(this.humanService.findAllById(humanOrders.stream().map(HumanOrder::getId).toList()));
@@ -85,8 +84,8 @@ public class OrderController {
         }
     }
 
-    @PutMapping("/human-fate-change/{id}")
-    public ResponseEntity<Response<Object>> findHumanFate(@PathVariable Integer id, @RequestBody String fate) {
+    @PutMapping("/human-fate/accept/{id}")
+    public ResponseEntity<Response<Object>> acceptHumanFateOrder(@PathVariable Integer id, @RequestBody String fate) {
         try {
             HumanOrder humanOrder = this.humanOrderService.findByHuman_Id(id).get();
             humanOrder.setStatus("ACCEPTED");
@@ -102,8 +101,8 @@ public class OrderController {
         }
     }
 
-    @PostMapping("/product/create/")
-    public ResponseEntity<Response<Object>> createOrder(@RequestBody ProductOrderDao dao, HttpServletRequest req) {
+    @PostMapping("/product")
+    public ResponseEntity<Response<Object>> saveProductOrder(@RequestBody ProductOrderDTO dao, HttpServletRequest req) {
         try {
             this.productOrderService.save(new ProductOrder(
                     "IN_THE_BASKET",
@@ -126,8 +125,8 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/product/basket/{login}")
-    public ResponseEntity<Response<Object>> findAllBasketOrders(@PathVariable String login, HttpServletRequest request) {
+    @GetMapping("/product")
+    public ResponseEntity<Response<Object>> findAllProductOrders(HttpServletRequest request) {
         try {
             int id = this.userService.findByLogin(request.getHeader("login")).getId();
             List<ProductOrder> orders = this.productOrderService.findAllByStatus("IN_THE_BASKET")
@@ -142,7 +141,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/product/basket/{orderId}")
-    public ResponseEntity<Response<Object>> removeOrder(@PathVariable Integer orderId, HttpServletRequest req) {
+    public ResponseEntity<Response<Object>> deleteProductOrder(@PathVariable Integer orderId, HttpServletRequest req) {
         try {
             int productId = this.productOrderService.findById(orderId).get().getProductId();
             this.productOrderService.deleteById(orderId);

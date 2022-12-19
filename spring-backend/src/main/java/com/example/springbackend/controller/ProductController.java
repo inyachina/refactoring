@@ -1,10 +1,8 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.EventDao;
-import com.example.springbackend.dao.ProductDao;
+import com.example.springbackend.data.dto.ProductDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
-import com.example.springbackend.model.Event;
 import com.example.springbackend.model.Product;
 import com.example.springbackend.service.impl.ProductServiceImpl;
 import com.example.springbackend.service.impl.UserServiceImpl;
@@ -14,14 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/product")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("api/products")
 public class ProductController {
     private ProductServiceImpl productService;
     private UserServiceImpl userService;
@@ -32,8 +27,8 @@ public class ProductController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Response<Object>> findAllActive() {
+    @GetMapping("/active")
+    public ResponseEntity<Response<Object>> findAllActiveProducts() {
         try {
             List<Product> products = this.productService.findAllBySold(false);
             return Response.success(products);
@@ -45,8 +40,8 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Response<Object>> save(@RequestBody ProductDao product, HttpServletRequest req) {
+    @PostMapping
+    public ResponseEntity<Response<Object>> saveProduct(@RequestBody ProductDTO product, HttpServletRequest req) {
         try {
             this.productService.save(new Product(product.getName(),
                     product.getDescription(),

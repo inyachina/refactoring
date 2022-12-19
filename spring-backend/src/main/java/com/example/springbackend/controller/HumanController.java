@@ -1,6 +1,6 @@
 package com.example.springbackend.controller;
 
-import com.example.springbackend.dao.HumanDao;
+import com.example.springbackend.data.dto.HumanDTO;
 import com.example.springbackend.facade.ErrorBody;
 import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Human;
@@ -16,8 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/human")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("api/humans")
 public class HumanController {
     private HumanServiceImpl humanService;
     private UserServiceImpl userService;
@@ -28,7 +27,7 @@ public class HumanController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Response<Object>> findAll(HttpServletRequest req) {
         try {
             List<Human> people = this.humanService.findAllByUserId(this.userService.findByLogin(req.getHeader("login")).getId());
@@ -42,8 +41,8 @@ public class HumanController {
         }
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Response<Object>> save(@RequestBody HumanDao humanDao, HttpServletRequest request) {
+    @PostMapping
+    public ResponseEntity<Response<Object>> save(@RequestBody HumanDTO humanDao, HttpServletRequest request) {
         try {
             this.humanService.save(new Human(
                     humanDao.getName(),
@@ -62,7 +61,7 @@ public class HumanController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Response<Object>> update(@RequestBody String fate, @PathVariable Integer id) {
         try {
             this.humanService.updateFate(id, fate);
