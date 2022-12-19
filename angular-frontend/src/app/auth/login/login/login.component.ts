@@ -48,8 +48,6 @@ export class LoginComponent implements OnInit {
       if (response.isSuccess) {
         AppComponent.user.isEmployee = response.data;
         this.redirectToMainPage();
-      } else {
-        this._snackbar.open("Неверный логин или пароль", "Закрыть", {duration: 3000});
       }
     });
   }

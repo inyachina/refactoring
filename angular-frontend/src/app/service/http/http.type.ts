@@ -7,3 +7,8 @@ export interface ApiResponse<R> {
 export interface QueryParams {
   [key: string]: any;
 }
+
+export interface ExceptionResponse {
+  type: string;
+  message: string;
+}

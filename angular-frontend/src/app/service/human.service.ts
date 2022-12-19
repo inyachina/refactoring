@@ -14,11 +14,11 @@ export class HumanService {
   }
 
   public createHuman(human: HumanType) {
-    return this._http.postData(`${HUMAN_URL}/create`, human);
+    return this._http.postData(`${HUMAN_URL}`, human);
   }
 
   public getPeople(): Observable<HumanType[]> {
-    return this._http.getData<HumanType[]>(`${HUMAN_URL}/all`)
+    return this._http.getData<HumanType[]>(`${HUMAN_URL}`)
       .pipe(map((r) => r.data));
   }
 

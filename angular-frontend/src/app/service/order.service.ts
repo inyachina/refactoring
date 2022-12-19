@@ -23,10 +23,10 @@ export class OrderService {
   }
 
   changeHumanFate(id: number, fate: string): Observable<ApiResponse<any>> {
-    return this._http.putData<ApiResponse<any>>(`${ORDER_URL}/human-fate-change/${id}`, fate);
+    return this._http.putData<ApiResponse<any>>(`${ORDER_URL}/human-fate/accept/${id}`, fate);
   }
 
   createHumanOrder(id: number): Observable<ApiResponse<any>> {
-    return this._http.postData<ApiResponse<any>>(`${ORDER_URL}/human/create/${id}`);
+    return this._http.postData<ApiResponse<any>>(`${ORDER_URL}/human-fate/${id}`);
   }
 }

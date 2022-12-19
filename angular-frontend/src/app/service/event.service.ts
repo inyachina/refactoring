@@ -39,11 +39,11 @@ export class EventService {
 
 
   public createEventOrder(event: EventType) {
-    return this._http.postData(`${EVENT_URL}/create`, event);
+    return this._http.postData(`${EVENT_URL}`, event);
   }
 
   public getAllEvents(): Observable<EventType[]> {
-    return this._http.getData<EventType[]>(`${EVENT_URL}/all`)
+    return this._http.getData<EventType[]>(`${EVENT_URL}`)
       .pipe(map((r) => r.data));
   }
 }
