@@ -1,13 +1,13 @@
 package com.example.springbackend.service;
 
+import com.example.springbackend.data.dto.EventDTO;
 import com.example.springbackend.model.Event;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EventService {
-    Event save(Event event);
+    Event save(EventDTO event);
 
     Optional<Event> findById(Integer id);
 
@@ -17,5 +17,5 @@ public interface EventService {
 
     void delete(Event entity);
 
-    void update(Event event);
+    Event update(Event event, Integer id);
 }

@@ -1,20 +1,16 @@
 package com.example.springbackend.service;
 
+import com.example.springbackend.data.dto.ProductOrderDTO;
+import com.example.springbackend.model.Product;
 import com.example.springbackend.model.ProductOrder;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductOrderService {
-    ProductOrder save(ProductOrder order);
+    ProductOrder save(ProductOrderDTO order, String login);
 
-    Optional<ProductOrder> findById(Integer id);
-
-    List<ProductOrder> findAll();
-
-    List<ProductOrder> findAllByStatus(String status);
+    List<Product> findAllByStatus(String in_the_basket, String status);
 
     void deleteById(Integer id);
 
-    void delete(ProductOrder order);
 }

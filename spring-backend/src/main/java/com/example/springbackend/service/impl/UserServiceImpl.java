@@ -1,5 +1,10 @@
 package com.example.springbackend.service.impl;
 
+import com.example.springbackend.data.dto.AuthenticationDTO;
+import com.example.springbackend.data.dto.AuthorizationDTO;
+import com.example.springbackend.exception.AlreadyExistsException;
+import com.example.springbackend.exception.BadRequestException;
+import com.example.springbackend.exception.NotFoundException;
 import com.example.springbackend.model.User;
 import com.example.springbackend.repository.UserRepository;
 import com.example.springbackend.service.UserService;
@@ -16,16 +21,32 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Override
+    public User authenticate(AuthenticationDTO dto) {
+        User user;
+        if ((user = this.userRepository.findByLogin(dto.getLogin())) != null)
+            if (user.getLogin().equals(dto.getPassword()))
+                return user;
+            else throw new BadRequestException("Incorrect password");
+        else throw new NotFoundException("User with login: " + dto.getLogin() + " not found");
+    }
+
+    @Override
+    public User authorize(AuthorizationDTO dto) {
+        if (this.userRepository.findByLogin(dto.getLogin()) != null)
+            throw new AlreadyExistsException("User with login: " + dto.getLogin() + " already exists");
+        return this.userRepository.save(new User(dto.getLogin(),
+                dto.getPassword(),
+                dto.getPhone(),
+                dto.getEmail(),
+                Boolean.parseBoolean(dto.getIsEmployee())));
+    }
 
     @Override
     public User findByLogin(String login) {
-        return this.userRepository.findByLogin(login);
+        User user;
+        if ((user = this.userRepository.findByLogin(login)) == null)
+            throw new NotFoundException("User with login: " + login + " not found");
+        return user;
     }
-
-
-    @Override
-    public User saveUser(User user) {
-        return this.userRepository.save(user);
-    }
-
 }

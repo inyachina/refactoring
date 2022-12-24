@@ -12,8 +12,6 @@ public interface EventOrderService {
 
     List<EventOrder> findAll();
 
-    List<EventOrder> findAllByStatus(String status);
-
     void deleteById(Integer id);
 
     void delete(EventOrder entity);

@@ -1,11 +1,9 @@
 package com.example.springbackend.controller;
 
 import com.example.springbackend.data.dto.ProductDTO;
-import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Product;
 import com.example.springbackend.service.impl.ProductServiceImpl;
-import com.example.springbackend.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,28 +12,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/products")
+@AllArgsConstructor
 public class ProductController {
-    private ProductServiceImpl productService;
-    private UserServiceImpl userService;
-
-    @Autowired
-    public ProductController(ProductServiceImpl productService, UserServiceImpl userService) {
-        this.productService = productService;
-        this.userService = userService;
-    }
+    private final ProductServiceImpl productService;
 
     @GetMapping("/active")
-    public ResponseEntity<Response<Object>> findAllActiveProducts() {
+    public ResponseEntity findAllActiveProducts() {
         List<Product> products = this.productService.findAllBySold(false);
-        return Response.success(products);
+        if (products.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(products);
     }
 
     @PostMapping
-    public ResponseEntity<Response<Object>> saveProduct(@RequestBody ProductDTO product, HttpServletRequest req) {
-        this.productService.save(new Product(product.getName(),
-                product.getDescription(),
-                this.userService.findByLogin(req.getHeader("login")).getId(),
-                product.getTimeCurrent() / 100));
-        return Response.success();
+    public ResponseEntity saveProduct(@RequestBody ProductDTO product, HttpServletRequest req) {
+        return ResponseEntity.ok(this.productService.save(product, req.getHeader("login")));
     }
 }

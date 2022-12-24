@@ -7,13 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HumanOrderService {
-    HumanOrder save(HumanOrder order);
+    HumanOrder save(Integer humanId, String login);
 
     Optional<HumanOrder> findById(Integer id);
 
-    List<Human> findHumanOrderByStatus(String status);
-
-    Optional<HumanOrder> findByHuman_Id(Integer id);
+    HumanOrder acceptHumanFateOrder(Integer id, String fate);
 
     List<HumanOrder> findAll();
 
@@ -23,5 +21,4 @@ public interface HumanOrderService {
 
     void delete(HumanOrder order);
 
-    public List<Human> findAllHumanInActiveStatus();
 }

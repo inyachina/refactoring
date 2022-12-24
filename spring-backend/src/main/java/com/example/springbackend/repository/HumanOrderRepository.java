@@ -14,7 +14,7 @@ public interface HumanOrderRepository extends JpaRepository<HumanOrder, Integer>
 
     Optional<HumanOrder> findById(Integer id);
 
-    Optional<HumanOrder> findByHuman_Id(Integer id);
+    Optional<HumanOrder> findByHumanId(Integer id);
 
     List<Human> findHumanOrderByStatus(String status);
 

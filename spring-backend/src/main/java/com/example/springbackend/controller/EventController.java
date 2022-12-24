@@ -1,56 +1,40 @@
 package com.example.springbackend.controller;
 
 import com.example.springbackend.data.dto.EventDTO;
-import com.example.springbackend.facade.Response;
 import com.example.springbackend.model.Event;
-import com.example.springbackend.service.impl.EventServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springbackend.service.EventService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/events")
+@AllArgsConstructor
 public class EventController {
-    private EventServiceImpl eventService;
-
-    @Autowired
-    public EventController(EventServiceImpl eventService) {
-        this.eventService = eventService;
-    }
+    private final EventService eventService;
 
     @GetMapping
-    public ResponseEntity<Response<Object>> findAll() {
+    public ResponseEntity findAll() {
         List<Event> events = this.eventService.findAll();
-        return Response.success(events);
+        if (events.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(events);
     }
 
     @PostMapping
-    public ResponseEntity<Response<Object>> save(@RequestBody EventDTO eventDTO) {
-
-        this.eventService.save(new Event(eventDTO.getName(), eventDTO.getDescription(), Date.valueOf(LocalDate.now()),
-                eventDTO.getStartTime(), eventDTO.getEndTime()));
-        return Response.success();
-
+    public ResponseEntity save(@RequestBody EventDTO eventDTO) {
+        return ResponseEntity.ok(this.eventService.save(eventDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Response<Object>> update(@RequestBody EventDTO eventDTO) {
-
-        this.eventService.update(new Event(eventDTO.getName(), eventDTO.getDescription(), Date.valueOf(LocalDate.now()),
-                eventDTO.getStartTime(), eventDTO.getEndTime()));
-        return Response.success();
-
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody Event event) {
+        return ResponseEntity.ok(this.eventService.update(event, id));
     }
 
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response<Object>> delete(@PathVariable String id) {
-        this.eventService.deleteById(Integer.parseInt(id));
-        return Response.success();
-
+    public ResponseEntity delete(@PathVariable Integer id) {
+        this.eventService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
