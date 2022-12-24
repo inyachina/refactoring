@@ -12,6 +12,7 @@ import com.example.springbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -21,6 +22,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     private ProductRepository productRepository;
     private UserService userService;
 
+    @Transactional
     @Override
     public ProductOrder save(ProductOrderDTO dto, String login) {
         User user = this.userService.findByLogin(login);
@@ -50,6 +52,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     }
 
+    @Transactional
     @Override
     public void deleteById(Integer id) {
         this.productOrderRepository.findById(id).ifPresent(productOrder -> {
