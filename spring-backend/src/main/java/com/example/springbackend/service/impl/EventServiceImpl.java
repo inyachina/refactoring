@@ -1,19 +1,21 @@
 package com.example.springbackend.service.impl;
 
+import com.example.springbackend.data.dto.EventDTO;
 import com.example.springbackend.model.Event;
 import com.example.springbackend.repository.EventRepository;
 import com.example.springbackend.service.EventService;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService {
-    private EventRepository eventRepository;
+    private final EventRepository eventRepository;
 
     @Autowired
     public EventServiceImpl(EventRepository eventRepository) {
@@ -21,8 +23,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event save(Event event) {
-        return this.eventRepository.save(event);
+    public Event save(EventDTO dto) {
+        return this.eventRepository.save(new Event(dto.getName(), dto.getDescription(), Date.valueOf(LocalDate.now()),
+                dto.getStartTime(), dto.getEndTime()));
     }
 
     @Override
@@ -39,7 +42,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteById(Integer id) {
         this.eventRepository.deleteById(id);
-
     }
 
     @Override
@@ -48,13 +50,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void update(@NonNull Event newEvent) {
-        Event oldEvent = this.eventRepository.findById(newEvent.getId()).get();
-        oldEvent.setName(newEvent.getName());
-        oldEvent.setDescription(newEvent.getDescription());
-        oldEvent.setStartTime(newEvent.getStartTime());
-        oldEvent.setEndTime(newEvent.getEndTime());
-        this.eventRepository.save(oldEvent);
+    public Event update(@NonNull Event newEvent, Integer id) {
+        newEvent.setId(id);
+        return this.eventRepository.save(newEvent);
     }
 
 }

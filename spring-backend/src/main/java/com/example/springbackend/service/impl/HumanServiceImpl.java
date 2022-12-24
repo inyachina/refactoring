@@ -1,22 +1,31 @@
 package com.example.springbackend.service.impl;
 
+import com.example.springbackend.data.dto.HumanDTO;
+import com.example.springbackend.exception.NotFoundException;
 import com.example.springbackend.model.Human;
 import com.example.springbackend.repository.HumanRepository;
 import com.example.springbackend.service.HumanService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import com.example.springbackend.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class HumanServiceImpl implements HumanService {
-    private HumanRepository humanRepository;
+    private final HumanRepository humanRepository;
+    private final UserService userService;
 
-    @Autowired
-    public HumanServiceImpl(HumanRepository humanRepository) {
-        this.humanRepository = humanRepository;
+    @Override
+    public Human save(HumanDTO dto, String login) {
+        return this.humanRepository.save(new Human(
+                dto.getName(),
+                dto.getSurname(),
+                dto.getBirthdayDate(),
+                this.userService.findByLogin(login).getId(),
+                dto.getTime(),
+                dto.getFate()));
     }
 
     @Override
@@ -25,8 +34,8 @@ public class HumanServiceImpl implements HumanService {
     }
 
     @Override
-    public Optional<Human> findById(Integer id) {
-        return this.humanRepository.findById(id);
+    public Human findById(Integer id) {
+        return this.humanRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
@@ -35,10 +44,9 @@ public class HumanServiceImpl implements HumanService {
     }
 
     @Override
-    public List<Human> findAllByUserId(Integer id) {
-        return this.humanRepository.findAllByUserId(id);
+    public List<Human> findAllByUsername(String login) {
+        return this.humanRepository.findAllByUserId(this.userService.findByLogin(login).getId());
     }
-
 
     @Override
     public void deleteById(Integer id) {
@@ -51,14 +59,16 @@ public class HumanServiceImpl implements HumanService {
     }
 
     @Override
-    public void updateFate(Integer id, String fate) {
+    public Human updateFate(Integer id, String fate) {
         Human oldHuman = this.humanRepository.findById(id).get();
         oldHuman.setFate(fate);
-        this.humanRepository.save(oldHuman);
+        return this.humanRepository.save(oldHuman);
     }
 
     @Override
     public List<Human> findAllById(Iterable<Integer> ids) {
         return this.humanRepository.findAllById(ids);
     }
+
+
 }
