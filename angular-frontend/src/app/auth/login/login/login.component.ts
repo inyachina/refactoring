@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
   private redirectToMainPage() {
-    this._router.navigateByUrl("main/store");
-    localStorage.setItem("utl", "main/store");
+    this._router.navigateByUrl("main");
+    localStorage.setItem("url", "main/store");
   }
 }

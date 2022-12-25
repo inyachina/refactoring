@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'app-auth',
