@@ -1,3 +1,7 @@
+.event_page{
+  min-height: 90vh;
+}
+
 table{
   width: 100%;
   word-break: break-all;
@@ -13,6 +17,9 @@ table{
 }
 
 .table_container{
-  margin-bottom: 0;
+  margin: 20px 10px 10px 10px;
+  table{
+    border-radius: 5px;
+  }
 }
 

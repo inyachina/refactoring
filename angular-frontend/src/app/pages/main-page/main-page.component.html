@@ -1,4 +1,15 @@
 <app-header></app-header>
 <div class="main_page">
-  <router-outlet></router-outlet>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="end">
+
+    <mat-tab label="События">
+      <app-event-table></app-event-table>
+      <mat-tab label="Магазин">
+        <app-products-view></app-products-view>
+      </mat-tab>
+    </mat-tab>
+    <mat-tab label="Люди">
+      <app-human-table></app-human-table>
+    </mat-tab>
+  </mat-tab-group>
 </div>

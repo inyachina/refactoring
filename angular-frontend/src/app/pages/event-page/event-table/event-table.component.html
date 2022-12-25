@@ -1,52 +1,48 @@
+<div class="event_page">
+  <app-event-form></app-event-form>
 
-<mat-tab-group >
-  <mat-tab label="Заказ на изменение реальности">
-    <app-event-form></app-event-form>
-  </mat-tab>
-  <mat-tab label="Просмотр событий">
-      <mat-form-field  class="ml-10" color="primary" appearance="standard">
-        <mat-label>Фильтр</mat-label>
-        <input matInput (keyup)="applyFilter($event)" [(ngModel)]="value"  #input>
-<!--        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
-<!--          <mat-icon>close</mat-icon>-->
-<!--        </button>-->
-      </mat-form-field>
 
-      <mat-card class="mat-elevation-z8 mr-15">
-        <table mat-table [dataSource]="dataSource" matSort>
+  <mat-card class="table_container">
+    <mat-form-field class="ml-10" appearance="standard">
+      <mat-label>Фильтр</mat-label>
+      <input matInput (keyup)="applyFilter($event)" [(ngModel)]="value" #input>
+      <!--        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
+      <!--          <mat-icon>close</mat-icon>-->
+      <!--        </button>-->
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" matSort>
 
-          <ng-container matColumnDef="name">
-            <th class="name_td" mat-header-cell *matHeaderCellDef mat-sort-header> Название </th>
-            <td class="name_td" mat-cell *matCellDef="let event"> {{event.name}} </td>
-          </ng-container>
+      <ng-container matColumnDef="name">
+        <th class="name_td" mat-header-cell *matHeaderCellDef mat-sort-header> Название</th>
+        <td class="name_td" mat-cell *matCellDef="let event"> {{event.name}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="description">
-            <th class="description_td" mat-header-cell *matHeaderCellDef mat-sort-header> Описание </th>
-            <td class="description_td" mat-cell *matCellDef="let event"> {{event.description}} </td>
-          </ng-container>
+      <ng-container matColumnDef="description">
+        <th class="description_td" mat-header-cell *matHeaderCellDef mat-sort-header> Описание</th>
+        <td class="description_td" mat-cell *matCellDef="let event"> {{event.description}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="startTime">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Год начала </th>
-            <td mat-cell *matCellDef="let row"> {{row.startTime *100}} </td>
-          </ng-container>
+      <ng-container matColumnDef="startTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Год начала</th>
+        <td mat-cell *matCellDef="let row"> {{row.startTime * 100}} </td>
+      </ng-container>
 
-          <ng-container matColumnDef="endTime">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Год окончания</th>
-            <td mat-cell *matCellDef="let row"> {{row.endTime ? row.endTime * 100 : '-'}} </td>
-          </ng-container>
+      <ng-container matColumnDef="endTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Год окончания</th>
+        <td mat-cell *matCellDef="let row"> {{row.endTime ? row.endTime * 100 : '-'}} </td>
+      </ng-container>
 
-          <tr mat-header-row sticky-state *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row sticky-state *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">Не найдено "{{input.value}}"</td>
-          </tr>
-        </table>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Не найдено "{{input.value}}"</td>
+      </tr>
+    </table>
 
-        <mat-paginator [pageSizeOptions]=" [10,5, 25,100]" aria-label="Select page of users"></mat-paginator>
-      </mat-card>
+    <mat-paginator [pageSizeOptions]=" [10,5, 25,100]" aria-label="Select page of users"></mat-paginator>
+  </mat-card>
 
-  </mat-tab>
-</mat-tab-group>
+</div>
 
 

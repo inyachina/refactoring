@@ -1,25 +1,28 @@
 package com.example.springbackend.service;
 
+import com.example.springbackend.data.dto.HumanDTO;
 import com.example.springbackend.model.Human;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface HumanService {
+    Human save(HumanDTO dto, String login);
+
     Human save(Human human);
 
-    Optional<Human> findById(Integer id);
+    Human findById(Integer id);
 
     List<Human> findAll();
 
-    List<Human> findAllByUserId(Integer id);
+    List<Human> findAllByUsername(String login);
 
 
     void deleteById(Integer id);
 
     void delete(Human entity);
 
-    void updateFate(Integer id, String fate);
+    Human updateFate(Integer id, String fate);
 
     List<Human> findAllById(Iterable<Integer> ids);
 }

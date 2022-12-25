@@ -1,28 +1,31 @@
 package com.example.springbackend.service.impl;
 
+import com.example.springbackend.exception.NotFoundException;
 import com.example.springbackend.model.Human;
 import com.example.springbackend.model.HumanOrder;
-import com.example.springbackend.repository.EventRepository;
 import com.example.springbackend.repository.HumanOrderRepository;
 import com.example.springbackend.service.HumanOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springbackend.service.HumanService;
+import com.example.springbackend.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class HumanOrderServiceImpl implements HumanOrderService {
-    private HumanOrderRepository humanOrderRepository;
-
-    @Autowired
-    public HumanOrderServiceImpl(HumanOrderRepository humanOrderRepository) {
-        this.humanOrderRepository = humanOrderRepository;
-    }
+    private final HumanOrderRepository humanOrderRepository;
+    private final HumanService humanService;
+    private final UserService userService;
 
     @Override
-    public HumanOrder save(HumanOrder order) {
-        return this.humanOrderRepository.save(order);
+    public HumanOrder save(Integer humanId, String login) {
+        return this.humanOrderRepository.save(new HumanOrder(
+                "IN_PROGRESS",
+                this.userService.findByLogin(login).getId(),
+                this.humanService.findById(humanId)));
     }
 
     @Override
@@ -31,13 +34,14 @@ public class HumanOrderServiceImpl implements HumanOrderService {
     }
 
     @Override
-    public List<Human> findHumanOrderByStatus(String status) {
-        return this.humanOrderRepository.findHumanOrderByStatus(status);
-    }
-
-    @Override
-    public Optional<HumanOrder> findByHuman_Id(Integer id) {
-        return this.humanOrderRepository.findByHuman_Id(id);
+    public HumanOrder acceptHumanFateOrder(Integer id, String fate) {
+        return this.humanOrderRepository.findByHumanId(id).map((humanOrder)->{
+            humanOrder.setStatus("ACCEPTED");
+            Human human = this.humanService.findById(id);
+            human.setFate(fate);
+            this.humanService.save(human);
+            return humanOrder;
+        }).orElseThrow(NotFoundException::new);
     }
 
     @Override
@@ -60,8 +64,4 @@ public class HumanOrderServiceImpl implements HumanOrderService {
         this.humanOrderRepository.delete(order);
     }
 
-    @Override
-    public List<Human> findAllHumanInActiveStatus() {
-        return  null;
-    }
 }

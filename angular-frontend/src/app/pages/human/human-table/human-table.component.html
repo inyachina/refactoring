@@ -2,14 +2,10 @@
   <div class="spacer">
     <h1 *ngIf="isEmployee">Заказы на расчет судьбы:</h1>
     <button *ngIf="!isEmployee" (click)="createHuman()"  color="primary" mat-raised-button>Добавить человека</button>
-      <mat-form-field class="mr-15" color="primary" appearance="standard">
+      <mat-form-field class="mr-15" color="primary" appearance="fill">
         <mat-label>Фильтр</mat-label>
         <input matInput (keyup)="applyFilter($event)" [(ngModel)]="value" #input>
-        <!--        <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
-        <!--          <mat-icon>close</mat-icon>-->
-        <!--        </button>-->
       </mat-form-field>
-<!--    <mat-checkbox>Отображать только тех людей, которых вы добавили</mat-checkbox>-->
   </div>
   <table mat-table [dataSource]="dataSource" matSort>
 
